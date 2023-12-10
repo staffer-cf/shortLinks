@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Link;
+use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -10,11 +11,15 @@ use Livewire\Component;
 class ShortLinks extends Component
 {
 
+    #[Rule('required')]
+    #[Rule('min:10', message: 'Link should be at least 10 chars')]
     public $originalLink = '';
 
 
     public function add()
     {
+
+        $this->validate();
 
         $link = Link::latest()->first();
 
